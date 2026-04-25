@@ -150,6 +150,19 @@ class ServiceProviderDAO:
             "id": result_line[0],
             "name": result_line[1]
         }
+    
+
+    def get_by_service(self, service_id):
+        cursor = self.get_cursor()
+        sql = "SELECT * FROM providers WHERE service_id = ?"
+        cursor.execute(sql, (service_id,))
+        results = cursor.fetchall()
+        return_array = []
+        for result in results:
+            return_array.append(self.convert_to_dictionary(result))
+    
+        self.close_all()
+        return return_array
 
         
 ServiceProviderDAO = ServiceProviderDAO()

@@ -30,13 +30,13 @@ def provider_by_id(id):
         return jsonify(provider)
 
 # Create
-# curl -X POST http://127.0.0.1:5000/providers \-H "Content-Type: application/json" \-d '{"name":"John","email":"john@test.com","phone":"123","price_per_hour":50,"service_id":1}'
+# curl -X POST http://127.0.0.1:5000/providers \-H "Content-Type: application/json" \-d '{"name":"Elaine","email":"elaine_mn@tgmail.com","phone":"086","price_per_hour":47,"service_id":2}'
 @app.route('/providers', methods=['POST'])
 def create_provider():
         return jsonify(ServiceProviderDAO.create_provider(request.json))
 
 # Update
-# curl -X PUT http://127.0.0.1:5000/providers/2 \-H "Content-Type: application/json" \-d '{"name":"Jack","email":"some_jack@gmail.com","phone":"123","price_per_hour":60,"service_id":1}'
+# curl -X PUT http://127.0.0.1:5000/providers/2 \-H "Content-Type: application/json" \-d '{"name":"Jack","email":"some_jack@gmail.com","phone":"123","price_per_hour":61,"service_id":1}'
 
 @app.route('/providers/<int:id>', methods=['PUT'])
 def update_provider(id):
