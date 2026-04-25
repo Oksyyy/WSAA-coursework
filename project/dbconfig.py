@@ -1,3 +1,3 @@
-mysql = {
+sqlite = {
     "database": "database.db"
 }

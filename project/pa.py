@@ -2,7 +2,7 @@ import sqlite3
 import dbconfig as cfg
 from os import path
 
-class ProviderDAO:
+class ServiceProviderDAO:
     connection=""
     cursor =''
     database=   ''
@@ -152,4 +152,4 @@ class ProviderDAO:
         }
 
         
-providerDAO = ProviderDAO()
+ServiceProviderDAO = ServiceProviderDAO()
