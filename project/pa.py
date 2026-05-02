@@ -24,7 +24,11 @@ class ServiceProviderDAO:
     # PROVIDERS     
     def get_all(self):
         cursor = self.get_cursor()
-        sql="select* from providers"
+        sql = """
+        select p.id, p.name, p.email, p.phone, p.price_per_hour, p.service_id, s.name as service_name
+        from providers p
+        join services s on p.service_id = s.id
+        """
 
         cursor.execute(sql)
 
@@ -33,14 +37,14 @@ class ServiceProviderDAO:
         #print(results)
         for result in results:
             #print(result)
-            return_array.append(self.convert_to_dictionary(result))
+            return_array.append(self.convert_provider_with_service_to_dictionary(result))
         
         self.close_all()
         return return_array
 
     def find_by_id(self, id):
         cursor = self.get_cursor()
-        cursor.execute("select* from providers where id = ?", (id,))
+        cursor.execute("select * from providers where id = ?", (id,))
         
         result = cursor.fetchone()
 
@@ -117,7 +121,7 @@ class ServiceProviderDAO:
     # SERVICES
     def get_all_services(self):
         cursor = self.get_cursor()
-        sql="select* from services"
+        sql = "select * from services"
         cursor.execute(sql)
         results = cursor.fetchall()
         return_array = []
@@ -154,15 +158,33 @@ class ServiceProviderDAO:
 
     def get_by_service(self, service_id):
         cursor = self.get_cursor()
-        sql = "SELECT * FROM providers WHERE service_id = ?"
+        sql = """
+            select p.id, p.name, p.email, p.phone, p.price_per_hour, p.service_id, s.name as service_name
+            from providers p
+            join services s on p.service_id = s.id
+            where p.service_id = ?
+        """
         cursor.execute(sql, (service_id,))
         results = cursor.fetchall()
         return_array = []
         for result in results:
-            return_array.append(self.convert_to_dictionary(result))
-    
+            return_array.append(self.convert_provider_with_service_to_dictionary(result))
         self.close_all()
         return return_array
+    
+    def convert_provider_with_service_to_dictionary(self, result_line):
+        if result_line is None:
+            return None
+
+        return {
+            "id": result_line[0],
+            "name": result_line[1],
+            "email": result_line[2],
+            "phone": result_line[3],
+            "price_per_hour": result_line[4],
+            "service_id": result_line[5],
+            "service_name": result_line[6]
+        }
 
         
-ServiceProviderDAO = ServiceProviderDAO()
+serviceProviderDAO = ServiceProviderDAO()
