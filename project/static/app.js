@@ -8,6 +8,22 @@ $(document).ready(function () {
     $("#addService").click(createService);
     $("#saveProvider").click(saveProvider);
     $("#serviceFilter").change(filterProviders);
+    $("#sortRate").change(filterProviders);
+
+    $(document).on("click", ".service-item", function () {
+        const serviceId = $(this).data("id");
+
+        $(".service-item").removeClass("active");
+        $(this).addClass("active");
+
+        if (!serviceId) {
+            $("#serviceFilter").val("");
+            loadProviders(); // show all
+        } else {
+            $("#serviceFilter").val(serviceId);
+            filterProviders();
+        }
+    });
 });
 
 // ---------- SERVICES ----------
@@ -21,8 +37,20 @@ function loadServices() {
             $("#serviceSelect").empty();
             $("#serviceFilter").empty().append('<option value="">All Services</option>');
 
+            // 👉 Add "All Services" button FIRST
+            $("#serviceList").append(`
+                <li class="service-item active" data-id="">
+                    All Services
+                </li>
+            `);
+
             services.forEach(s => {
-                $("#serviceList").append(`<li>${s.name}</li>`);
+                $("#serviceList").append(`
+                    <li class="service-item" data-id="${s.id}">
+                        ${s.name}
+                    </li>
+                `);
+
                 $("#serviceSelect").append(`<option value="${s.id}">${s.name}</option>`);
                 $("#serviceFilter").append(`<option value="${s.id}">${s.name}</option>`);
             });
@@ -56,7 +84,7 @@ function loadProviders() {
 }
 
 function filterProviders() {
-    const serviceId = $(this).val();
+    const serviceId = $("#serviceFilter").val();
 
     if (!serviceId) {
         loadProviders();
@@ -71,6 +99,14 @@ function filterProviders() {
 }
 
 function renderProviders(providers) {
+    const sortType = $("#sortRate").val();
+
+    if (sortType === "asc") {
+        providers.sort((a, b) => a.price_per_hour - b.price_per_hour);
+    } else if (sortType === "desc") {
+        providers.sort((a, b) => b.price_per_hour - a.price_per_hour);
+    }
+
     const tbody = $("#providerTable tbody");
     tbody.empty();
 
@@ -83,8 +119,9 @@ function renderProviders(providers) {
                 <td>${p.price_per_hour}</td>
                 <td>${p.service_name}</td>
                 <td>
-                    <button onclick="editProvider(${p.id})">Edit</button>
-                    <button onclick="deleteProvider(${p.id})">Delete</button>
+                    <span class="action edit" onclick="editProvider(${p.id})">Edit</span>
+                    |
+                    <span class="action delete" onclick="deleteProvider(${p.id})">Delete</span>
                 </td>
             </tr>
         `);

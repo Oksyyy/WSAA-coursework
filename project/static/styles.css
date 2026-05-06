@@ -5,7 +5,7 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f7fb;
+    background: #d3e5ff;
     color: #222;
 }
 
@@ -85,7 +85,7 @@ select:focus {
 
 button {
     border: none;
-    background: #2563eb;
+    background: #4977d9;
     color: white;
     padding: 11px 16px;
     border-radius: 10px;
@@ -95,7 +95,7 @@ button {
 }
 
 button:hover {
-    background: #1d4ed8;
+    background: #3b5ec0;
     transform: translateY(-1px);
 }
 
@@ -154,13 +154,59 @@ td button {
 }
 
 td button:last-child {
-    background: #dc2626;
+    background: #c15f5f;
 }
 
 td button:last-child:hover {
     background: #b91c1c;
 }
+.action {
+    cursor: pointer;
+    font-weight: 600;
+    margin: 0 5px;
+    transition: 0.2s;
+}
 
+.action.edit {
+    color: #5171b8;
+}
+
+.action.edit:hover {
+    text-decoration: underline;
+    color: #013ee4;
+}
+
+.action.delete {
+    color: #ec5e5e;
+}
+
+.action.delete:hover {
+    text-decoration: underline;
+    color: #b91c1c;
+}
+.service-item {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.service-item:hover {
+    background: #bae6fd;
+    transform: translateY(-1px);
+}
+
+.service-item.active {
+    background: #2563eb;
+    color: white;
+}
+.service-item:first-child {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.service-item:first-child.active {
+    background: #2563eb;
+    color: white;
+}
 @media (max-width: 700px) {
     .section-header,
     .form-row {

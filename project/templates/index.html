@@ -20,12 +20,12 @@
             <h2>Services</h2>
         </div>
 
+        <ul id="serviceList" class="service-list"></ul>
+
         <div class="form-row">
             <input type="text" id="serviceName" placeholder="New service name">
             <button id="addService">Add Service</button>
         </div>
-
-        <ul id="serviceList" class="service-list"></ul>
     </section>
 
     <!-- PROVIDERS -->
@@ -33,10 +33,18 @@
         <div class="section-header">
             <h2>Providers</h2>
 
-            <select id="serviceFilter">
-                <option value="">All Services</option>
-            </select>
-        </div>
+            <div style="display:flex; gap:10px;">
+                <select id="serviceFilter">
+                    <option value="">All Services</option>
+                </select>
+
+                <select id="sortRate">
+                    <option value="">Sort by Rate</option>
+                    <option value="asc">Lowest → Highest</option>
+                    <option value="desc">Highest → Lowest</option>
+                </select>
+            </div>
+    </div>
 
         <table id="providerTable">
             <thead>
