@@ -1,4 +1,5 @@
-# Flask server
+# Program to manage service providers and their services using Flask
+# Author: Oksana Abrosimova
 
 from flask import Flask, request, jsonify, render_template
 from pa import serviceProviderDAO
@@ -19,7 +20,7 @@ def get_providers():
         return jsonify(serviceProviderDAO.get_all())
 
 # Find by id
-# curl http://127.0.0.1:5000/providers/2
+# curl http://127.0.0.1:5000/providers/6
 
 @app.route('/providers/<int:id>', methods=['GET'])
 def provider_by_id(id):
@@ -83,4 +84,5 @@ def get_by_service(service_id):
 
 
 if __name__ == "__main__":
-        app.run(debug=True, threaded=False)
+        
+        app.run(debug=True)

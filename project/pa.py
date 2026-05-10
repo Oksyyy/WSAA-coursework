@@ -1,3 +1,6 @@
+# Program for CRUD operations on service providers and their services using Flask and SQLite
+# Author: Oksana Abrosimova
+
 import sqlite3
 import dbconfig as cfg
 from os import path
